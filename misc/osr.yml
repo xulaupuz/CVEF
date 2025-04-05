@@ -1,0 +1,28 @@
+split      : "AUROC"  
+gpu_ids    : '0'
+use_wandb  : False
+resume     : True
+ckpt       : "/data/run01/scw6ceg/ml/MyProj3-pre/ckpt/osr/tiny_imagenet/1015_16_52/"
+
+loss_wgts  : [1.0,0.1,0.2,0.001]
+score_wgts : [1,0,0]           
+branch_opt : -1
+gate_temp  : 100
+
+dataset    : "tiny_imagenet"
+plus_num   : 50
+id_set     : "cifar10"     
+ood_set    : "svhn"        
+
+num_workers: 2
+epoch_num  : 2
+batch_size : 32
+save_step  : 50
+test_step  : 1               
+backbone   : "resnet18"   
+
+optimizer  : "SGD"
+lr         : 0.1             
+gamma      : 0.1
+milestones : [130]           
+lgs_temp    : 100
