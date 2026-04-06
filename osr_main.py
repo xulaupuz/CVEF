@@ -11,9 +11,6 @@ from datasets.osr_loader import CIFAR10_OSR, CIFAR100_OSR, SVHN_OSR, Tiny_ImageN
 import warnings
 warnings.filterwarnings('ignore')
 
-import loadpretrain
-
-
 def getLoader(options):
     print("{} Preparation".format(options['dataset']))
     if 'cifar10' == options['dataset']:
@@ -62,9 +59,9 @@ def main(options):
     ensure_dir(log_path) # 没有会创建
     
     if options['dataset'] == 'cifar100':
-        stats_log = open(log_path + "MEDAF" + '_' + str(options['plus_num']) + '_' + now_time + '.txt', 'w')
+        stats_log = open(log_path + "CVEF" + '_' + str(options['plus_num']) + '_' + now_time + '.txt', 'w')
     else:
-        stats_log = open(log_path + "MEDAF" + '_' + now_time + '.txt', 'w')
+        stats_log = open(log_path + "CVEF" + '_' + now_time + '.txt', 'w')
     for i in range(len(splits[options['dataset']])):
         options['item'] = i
         known = splits[options['dataset']][i]
@@ -90,10 +87,6 @@ def trainLoop(options):
     ckpt_path = './ckpt/osr' + '/' + options['dataset'] + '/' + now_time
     ensure_dir(ckpt_path)
     model = get_model(options)
-
-    loadpretrain.load_4b_2v(model,"C:\mlcodes\datasets\pretrainModel\imagenet21k_ViT-B_8.npz")
-    # loadpretrain.load_4b_2v(model, "/HOME/scw6ceg/run/ml/datasets/pretrainModel/imagenet21k_ViT-B_8.npz")
-
     model = nn.DataParallel(model).cuda()
 
     if options['resume']:
@@ -152,7 +145,7 @@ def trainLoop(options):
 
 if __name__ == '__main__':
     cudnn.benchmark = True
-    options = get_config('osr') # 见osr.yml
+    options = get_config('osr') 
     options['dataset'] = 'cifar100'#'tiny_imagenet'
     options['backbone'] = 'vit'
     options['plus_num'] = 50

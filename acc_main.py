@@ -11,8 +11,6 @@ from datasets.osr_loader import CIFAR10_OSR, CIFAR100_OSR, SVHN_OSR, Tiny_ImageN
 import warnings
 warnings.filterwarnings('ignore')
 
-import loadpretrain
-
 
 def getLoader(options):
     print("{} Preparation".format(options['dataset']))
@@ -50,7 +48,7 @@ def main(options):
     now_time = datetime.datetime.now().strftime("%m%d_%H_%M")
     log_path = './logs/osr' + '/' + options['dataset'] + '/'
     ensure_dir(log_path) # 没有会创建
-    stats_log = open(log_path + "MEDAFoodExp" + '_' + now_time + '.txt', 'w')
+    stats_log = open(log_path + "CVEFoodExp" + '_' + now_time + '.txt', 'w')
 
     for i in range(len(splits[options['dataset']])):
         options['item'] = i
